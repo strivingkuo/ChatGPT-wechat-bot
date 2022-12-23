@@ -4,11 +4,7 @@ import config from './config';
 import { retryRequest } from './utils';
 
 const conversationMap = new Map();
-const chatGPT = new ChatGPTAPI({
-  sessionToken: config.chatGPTSessionToken,
-  clearanceToken: config.clearanceToken,
-  userAgent: config.userAgent,
-});
+const chatGPT = new ChatGPTAPI({ sessionToken: config.chatGPTSessionToken });
 
 function resetConversation(contactId: string) {
   if (conversationMap.has(contactId)) {
@@ -53,10 +49,7 @@ export async function replyMessage(contact, content, contactId) {
       500
     );
 
-    if (
-      (contact.topic && contact?.topic() && config.groupReplyMode) ||
-      (!contact.topic && config.privateReplyMode)
-    ) {
+    if ((contact.topic && contact?.topic() && config.groupReplyMode) || (!contact.topic && config.privateReplyMode)) {
       const result = content + '\n-----------\n' + message;
       await contact.say(result);
       return;
