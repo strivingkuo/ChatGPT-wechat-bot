@@ -1,5 +1,4 @@
-export default {
-  // 填入你的session token
+﻿export default {
   chatGPTSessionToken: '',
   // 设置获取消息的重试次数
   retryTimes: 3,
